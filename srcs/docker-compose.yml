@@ -1,0 +1,44 @@
+# version: 'version'
+
+services:
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb:42
+    container_name: mariadb
+    ports:
+      - 3306:3306
+    env_file:
+      - .env
+    # networks:
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+    restart: always
+
+  # wordpress:
+  #   build:
+  #     context: .
+  #     # dockerfile: requirements/wordpress/Dockerfile
+  #     image: wordpress
+  #     volumes:
+  #       - ./data/wordpress:/var/www/html
+  #   environment:
+  #     .env
+  #   networks:
+
+  # nginx:
+  #   build:
+  #     context: .
+  #     # dockerfile: requirements/nginx/Dockerfile
+  #     image: nginx
+  #     volumes:
+  #       - ./data/nginx:/var/log/nginx
+  #       - ./data/wordpress:/var/www/html
+  #       - ./requirements/nginx/nginx.conf:/etc/nginx/nginx.conf
+  #       - ./requirements/nginx/conf.d:/etc/nginx/conf.d
+  #   ports:
+  #     - 80:80
+  #   networks:
+
+# networks:
+
+# volumes:
