@@ -2,16 +2,18 @@
 
 services:
   mariadb:
+    container_name: mariadb
     build: ./requirements/mariadb
     image: mariadb:42
-    container_name: mariadb
     ports:
       - 3306:3306
-    env_file:
-      - .env
-    # networks:
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
     volumes:
-      - ./data/mariadb:/var/lib/mysql
+      - mariadb_volume:/var/lib/mysql
     restart: always
 
   # wordpress:
@@ -41,4 +43,6 @@ services:
 
 # networks:
 
-# volumes:
+volumes:
+  mariadb_volume:
+    
