@@ -2,7 +2,7 @@ FROM debian:stable-slim
 
 # Install MariaDB
 RUN apt-get update && \
-    apt-get install -y mariadb-client mariadb-server && \
+    apt-get install -y mariadb-server && \
     apt-get clean
 
 

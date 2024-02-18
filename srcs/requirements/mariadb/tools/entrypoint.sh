@@ -1,24 +1,26 @@
 #!/bin/bash
 
-# Create the /run/mysqld directory and change its ownership to mysql
-mkdir -p /run/mysqld
-chown -R mysql:mysql /run/mysqld
+sleep 2
 
 # Initialize database if necessary
-if [ ! -d "/var/lib/mysql/mysql" ]; then
-    mysql_install_db --user=mysql --datadir=/var/lib/mysql
+if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
+    echo "Initializing database..."
 
     # Start the server in the background
     mysqld_safe --datadir=/var/lib/mysql --user=mysql &
+    sleep 2
 
-    # Setup user accounts and database
+    # Setup user and database
     mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};"
     mysql -u root -e "CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
     mysql -u root -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';"
-    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
-    mysql -u root -e "FLUSH PRIVILEGES;"
+    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}'; FLUSH PRIVILEGES;"
 
+    # Shutdown the server
+    mysqladmin -u root -p${MYSQL_ROOT_PASSWORD} shutdown
+else
+    echo "Database already initialized"
 fi
 
 # Start the server
-exec mysqld --datadir=/var/lib/mysql --bind-address=0.0.0.0 --user=mysql
+exec mysqld --bind-address=0.0.0.0 --user=mysql

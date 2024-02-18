@@ -10,7 +10,7 @@ up:
 
 exec:
 	@ echo "Starting docker containers"
-	@ docker exec -it mariadb mariadb -u root -p
+	@ docker exec -it mariadb bash
 
 rm:
 	@ echo "Removing docker containers"
