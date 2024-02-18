@@ -15,16 +15,16 @@ services:
       - my_network
     restart: always
 
-    # wordpress:
-    #   build:
-    #     context: .
-    #     # dockerfile: requirements/wordpress/Dockerfile
-    #     image: wordpress
-    #     volumes:
-    #       - ./data/wordpress:/var/www/html
-    #   environment:
-    #     .env
-    #   networks:
+  # wordpress:
+  #   build:
+  #     context: .
+  #     # dockerfile: requirements/wordpress/Dockerfile
+  #     image: wordpress
+  #     volumes:
+  #       - ./data/wordpress:/var/www/html
+  #   environment:
+  #     .env
+  #   networks:
 
   # nginx:
   #   # build:
@@ -36,14 +36,11 @@ services:
   #     - 80:80
   #   networks:
   #   - my_network
-    # volumes:
-    #       - ./data/nginx:/var/log/nginx
-    #       - ./data/wordpress:/var/www/html
-    #       - ./requirements/nginx/nginx.conf:/etc/nginx/nginx.conf
-    #       - ./requirements/nginx/conf.d:/etc/nginx/conf.d
-    #   ports:
-    #     - 80:80
-    #   networks:
+  # volumes:
+  #       - ./data/nginx:/var/log/nginx
+  #       - ./data/wordpress:/var/www/html
+  #       - ./requirements/nginx/nginx.conf:/etc/nginx/nginx.conf
+  #       - ./requirements/nginx/conf.d:/etc/nginx/conf.d
 
 networks:
   my_network:

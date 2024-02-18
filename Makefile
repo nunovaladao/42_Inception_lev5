@@ -12,10 +12,6 @@ exec:
 	@ echo "Starting docker containers"
 	@ docker exec -it mariadb bash
 
-rm:
-	@ echo "Removing docker containers"
-	@ docker rm -f mariadb
-
 rmi:
 	@ echo "Removing docker images"
 	@ docker rmi -f mariadb:42
