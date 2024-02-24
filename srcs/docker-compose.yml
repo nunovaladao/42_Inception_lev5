@@ -1,19 +1,19 @@
 # version: 'version'
 
 services:
-  # mariadb:
-  #   container_name: mariadb
-  #   build: ./requirements/mariadb
-  #   image: mariadb:42
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - 3306:3306
-  #   volumes:
-  #     - mariadb_volume:/var/lib/mysql
-  #   networks:
-  #     - my_network
-  #   restart: always
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    image: mariadb:42
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb_volume:/var/lib/mysql
+    networks:
+      - my_network
+    restart: always
 
 
   nginx:
