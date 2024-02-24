@@ -10,11 +10,23 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - mariadb_volume:/var/lib/mysqlz
+      - mariadb_volume:/var/lib/mysql
     networks:
       - my_network
     restart: always
 
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    image: nginx:42
+    ports:
+      - 443:443
+    networks:
+    - my_network
+    restart: always
+  # volumes:
+  
   # wordpress:
   #   build:
   #     context: .
@@ -25,22 +37,6 @@ services:
   #   environment:
   #     .env
   #   networks:
-
-  # nginx:
-  #   # build:
-  #   #   context: .
-  #   # dockerfile: requirements/nginx/Dockerfile
-  #   container_name: nginx
-  #   image: nginx
-  #   ports:
-  #     - 80:80
-  #   networks:
-  #   - my_network
-  # volumes:
-  #       - ./data/nginx:/var/log/nginx
-  #       - ./data/wordpress:/var/www/html
-  #       - ./requirements/nginx/nginx.conf:/etc/nginx/nginx.conf
-  #       - ./requirements/nginx/conf.d:/etc/nginx/conf.d
 
 networks:
   my_network:
