@@ -10,11 +10,26 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - mariadb_volume:/var/lib/mysql
+      - db-data:/var/lib/mysql
     networks:
-      - my_network
+      - project_network
     restart: always
 
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    image: wordpress:42
+    env_file:
+      - .env
+    ports:
+      - 9000:9000
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress-data:/var/www/html/wordpress
+    networks:
+      - project_network
+    restart: always
 
   nginx:
     container_name: nginx
@@ -22,27 +37,31 @@ services:
     image: nginx:42
     ports:
       - 443:443
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress-data:/var/www/html/wordpress
     networks:
-    - my_network
+      - project_network
     restart: always
-  # volumes:
-  
-  # wordpress:
-  #   build:
-  #     context: .
-  #     # dockerfile: requirements/wordpress/Dockerfile
-  #     image: wordpress
-  #     volumes:
-  #       - ./data/wordpress:/var/www/html
-  #   environment:
-  #     .env
-  #   networks:
-
-networks:
-  my_network:
-    driver: bridge
 
 volumes:
-  mariadb_volume:
+  db-data:
+    name: mariadb_volume
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/nuno/data/db # check later
+      o: bind
+  wordpress-data:
+    name: wordpress_volume
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/nuno/data/wp # check later
+      o: bind
 
-
+networks:
+  project_network:
+    name: inception_network
+    driver: bridge
