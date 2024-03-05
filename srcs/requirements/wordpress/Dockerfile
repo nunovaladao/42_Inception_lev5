@@ -1,7 +1,13 @@
-FROM debian:slim
+# Start from a Debian image
+FROM debian:stable-slim
 
-RUN command
+# Install necessary packages
+RUN apt-get update && apt-get install -y curl \
+    php8.2-fpm \
+    php-mysql
 
-COPY source dest
+COPY /tools/entrypoint.sh /tools/entrypoint.sh
 
-ENTRYPOINT [ "executable" ]
+RUN chmod +x /tools/entrypoint.sh
+
+ENTRYPOINT [ "/tools/entrypoint.sh" ]
