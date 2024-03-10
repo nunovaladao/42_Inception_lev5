@@ -13,9 +13,9 @@ check_host:
 	fi
 
 check_volume_folder:
-	@ if [ ! -d "/home/nuno/data/db" ] || [ ! -d "/home/nuno/data/wp" ]; then \
-	mkdir -p /home/nuno/data/db /home/nuno/data/wp; \
-	fi # need to change for my login
+	@ if [ ! -d "/home/nsoares-/data/db" ] || [ ! -d "/home/nsoares-/data/wp" ]; then \
+		mkdir -p /home/nsoares-/data/db /home/nsoares-/data/wp; \
+	fi
 
 up: check_host check_volume_folder
 	@ echo "Starting docker containers"
@@ -24,6 +24,6 @@ up: check_host check_volume_folder
 down:
 	@ echo "Stopping/Remove docker containers"
 	@ docker compose -f $(DOCKER_PATH) down --rmi all -v
-	@ sudo rm -rf /home/nuno/data # need to change for my login
+	@ sudo rm -rf /home/nsoares-/data
 
 .PHONY: all up down
