@@ -1,4 +1,4 @@
-# version: 'version'
+version: '3'
 
 services:
   mariadb:
@@ -51,14 +51,14 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/nuno/data/db # check later
+      device: /home/nsoares-/data/db
       o: bind
   wordpress-data:
     name: wordpress_volume
     driver: local
     driver_opts:
       type: none
-      device: /home/nuno/data/wp # check later
+      device: /home/nsoares-/data/wp
       o: bind
 
 networks:
