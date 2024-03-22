@@ -5,7 +5,7 @@ DOCKER_PATH = ./srcs/docker-compose.yml
 all: up
 
 check_host:
-	@ if ! grep -q "127.0.0.1 nsoares-.42.fr" /etc/hosts; then \
+	@ if ! grep -Fxq "127.0.0.1 nsoares-.42.fr" /etc/hosts; then \
 		echo "Creating host entry..."; \
 		echo "127.0.0.1 nsoares-.42.fr" | sudo tee -a /etc/hosts; \
 	else \
