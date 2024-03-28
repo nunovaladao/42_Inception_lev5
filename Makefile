@@ -26,4 +26,8 @@ down:
 	@ docker compose -f $(DOCKER_PATH) down --rmi all -v
 	@ sudo rm -rf /home/nsoares-/data
 
-.PHONY: all up down
+clean:
+	@ echo "Removing all docker stuff"
+	@ docker system prune --all
+
+.PHONY: all up down clean
