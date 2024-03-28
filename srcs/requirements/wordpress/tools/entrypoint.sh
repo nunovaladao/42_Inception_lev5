@@ -1,15 +1,17 @@
 #! /bin/bash
 
 # Modify PHP-FPM configuration
-sed -i 's|listen = /run/php/php8.2-fpm.sock|listen = wordpress:9000|' /etc/php/8.2/fpm/pool.d/www.conf
+sed -i 's|listen = /run/php/php7.4-fpm.sock|listen = wordpress:9000|' /etc/php/7.4/fpm/pool.d/www.conf
+
+# Cria o diretório para o PHP
+mkdir -p /run/php/
 
 # Check if wp-config.php exists
 if [ ! -f /var/www/html/wordpress/wp-config.php ]; then
 
     # Install WP-CLI
-    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-    chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/local/bin/wp
+    wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /usr/local/bin/wp && \
+    chmod +x /usr/local/bin/wp
 
     mkdir -p /var/www/html/wordpress
     cd /var/www/html/wordpress
@@ -33,5 +35,4 @@ else
 fi
 
 # Start PHP-FPM
-exec php-fpm8.2 -F
-
+exec php-fpm7.4 -F

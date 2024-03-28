@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM debian:bullseye
 
 # Install MariaDB
 RUN apt-get update && \

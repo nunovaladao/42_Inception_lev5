@@ -1,10 +1,9 @@
-# Start from a Debian image
-FROM debian:stable-slim
+FROM debian:bullseye
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y curl \
-    php8.2-fpm \
-    php-mysql
+RUN apt-get update && apt-get install -y wget \
+    php-fpm \
+    php-mysqli
 
 COPY /tools/entrypoint.sh /tools/entrypoint.sh
 

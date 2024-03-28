@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM debian:bullseye
 
 # install nginx and openssl (package for creating and managing SSL/TLS certificates and keys)
 RUN apt-get update && apt-get install -y nginx openssl
