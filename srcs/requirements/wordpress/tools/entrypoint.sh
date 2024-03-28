@@ -34,5 +34,7 @@ else
     echo "Wordpress already installed and configured"
 fi
 
+echo "Access WordPress site here: https://nsoares-.42.fr"
+
 # Start PHP-FPM
 exec php-fpm7.4 -F
