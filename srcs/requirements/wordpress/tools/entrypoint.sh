@@ -23,7 +23,7 @@ if [ ! -f /var/www/html/wordpress/wp-config.php ]; then
     # Modify wp-config.php
     wp config set DB_NAME ${MYSQL_DATABASE} --allow-root
     wp config set DB_USER ${MYSQL_USER} --allow-root
-    wp config set DB_PASSWORD ${MYSQL_PASSWORD} --allow-root
+    wp config set DB_PASSWORD ${MYSQL_PASSWORD_FILE} --allow-root
     wp config set DB_HOST ${MYSQL_HOST} --allow-root
 
     # Install WordPress

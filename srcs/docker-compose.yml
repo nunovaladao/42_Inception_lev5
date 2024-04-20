@@ -5,6 +5,8 @@ services:
     image: mariadb:42
     env_file:
       - .env
+    secrets:
+      - db_password
     ports:
       - 3306:3306
     volumes:
@@ -19,6 +21,8 @@ services:
     image: wordpress:42
     env_file:
       - .env
+    secrets:
+      - db_password
     ports:
       - 9000:9000
     depends_on:
@@ -63,3 +67,7 @@ networks:
   project_network:
     name: inception_network
     driver: bridge
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
