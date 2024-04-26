@@ -3,11 +3,12 @@ FROM debian:bullseye
 # install nginx and openssl (package for creating and managing SSL/TLS certificates and keys)
 RUN apt-get update && apt-get install -y nginx openssl
 
-#  store the certificate and the key for secure connection
-RUN mkdir -p /etc/nginx/ssl
-
 # generate a new self-signed certificate and key (for a secure connection (HTTPS))
-RUN openssl req -x509 -nodes -new -days 365 -out /etc/nginx/ssl/nsoares-.crt -keyout /etc/nginx/ssl/nsoares-.key \
+# req: This subcommand specifies that we want to use X.509 certificate signing request (CSR) management.
+# -x509: This option outputs a self-signed certificate instead of a certificate request.
+# -nodes: This option tells OpenSSL to skip the option to secure our certificate with a passphrase.
+RUN openssl req -x509 -nodes -days 365 -keyout /etc/ssl/private/ssl-cert-snakeoil.key \
+    -out /etc/ssl/certs/ssl-cert-snakeoil.pem \
     -subj "/CN=nsoares-/O=42/OU=42Porto/C=PT/L=Porto"
 
 # This directory is meant to contain configuration files for all possible sites that could be served by Nginx.
