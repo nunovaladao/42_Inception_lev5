@@ -3,8 +3,12 @@ services:
     container_name: mariadb
     build: ./requirements/mariadb
     image: mariadb:42
-    env_file:
+    env_file: 
       - .env
+    secrets:
+      - db_password
+      - db_root_password
+      - db_name
     ports:
       - 3306:3306
     volumes:
@@ -17,8 +21,14 @@ services:
     container_name: wordpress
     build: ./requirements/wordpress
     image: wordpress:42
-    env_file:
+    env_file: 
       - .env
+    secrets:
+      - db_password
+      - db_host
+      - db_name
+      - wp_admin_password
+      - wp_user_password
     ports:
       - 9000:9000
     depends_on:
@@ -63,3 +73,17 @@ networks:
   project_network:
     name: inception_network
     driver: bridge
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  db_host:
+    file: ../secrets/db_host.txt
+  db_name:
+    file: ../secrets/db_name.txt
+  wp_admin_password:
+    file: ../secrets/wp_admin_password.txt
+  wp_user_password:
+    file: ../secrets/wp_user_password.txt
